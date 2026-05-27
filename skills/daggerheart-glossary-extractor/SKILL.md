@@ -1,6 +1,6 @@
 ---
 name: daggerheart-glossary-extractor
-description: Extract document-specific glossary from Daggerheart project original text. Scans source/_original.md for proper nouns and recurring unique concepts, outputs glossary/_glossary.json with shortest-root terms and variants. Use during daggerheart-translation-pipeline step 2, or when user says "提取术语表" or "run step 2".
+description: Extract document-specific glossary from Daggerheart project original text. Scans source/_original.md for proper nouns and recurring unique concepts, outputs glossary/_glossary.json with shortest-root terms and variants. Use during daggerheart-translation-pipeline step 3, or when user says "提取术语表" or "run step 3".
 ---
 
 # Daggerheart Glossary Extractor

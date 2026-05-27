@@ -6,11 +6,12 @@ Daggerheart TTRPG 内容的翻译技能合集。英文 PDF/DOCX 输入，中文 
 
 ```
 skills/                           # 技能源码
-  daggerheart-translation-pipeline/  # 9 步翻译管线（主入口）
+  daggerheart-translation-pipeline/  # 10 步翻译管线（主入口）
+  daggerheart-md-converter/          # PDF/DOCX → 原始 Markdown
+  daggerheart-md-format-fixer/       # 原始 Markdown → 标准原文 Markdown
   daggerheart-chinese-writing/      # 中文行文规范
   daggerheart-glossary-extractor/   # 文档术语提取
   daggerheart-json-formatter/      # 译文 → 结构化 JSON
-  daggerheart-md-converter/        # PDF/DOCX → Markdown
 project/
   example/                        # 翻译项目模板（复制以新建项目）
 ```

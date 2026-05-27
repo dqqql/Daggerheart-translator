@@ -3,11 +3,11 @@ name: daggerheart-chinese-writing
 description: Rewrite Daggerheart text into natural Chinese first, with terminology consistency enforced via REFERENCE.md. Use when translating, polishing, or reviewing Chinese Daggerheart text.
 ---
 
-# 匕首之心中文写作规范
+# 译中写作规范
 
 首要原则：
 
-> **不要把英文翻成中文，要把内容重写成中文。**
+> **不是把原文翻译成中文，而是要把原文内容重写成中文。**
 
 本技能的目标是产出**自然、顺口、可直接朗读和使用、符合中国人日常习惯的中文文本**。
 术语统一、机制准确、格式规范都重要，但它们是辅助约束；第一优先级始终是：**像中文原稿，而不是翻译稿。**
