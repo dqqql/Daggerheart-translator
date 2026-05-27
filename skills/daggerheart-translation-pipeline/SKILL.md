@@ -18,8 +18,14 @@ description: End-to-end pipeline: English PDF → Chinese MD → structured JSON
 
 ## 文件路径
 
-> `scripts/` 指 `.claude/skills/daggerheart-translation-pipeline/scripts/`
-> `resources/` 指 `.claude/skills/daggerheart-translation-pipeline/resources`
+### 技能内部路径
+`scripts/` 和 `resources/` 相对于本 skill 根目录。所有脚本通过 `__file__` 解析路径，不依赖外部目录结构。
+
+### 项目路径
+所有 `source/` 路径（如 `source/_original.md`、`source/_glossary.json`、`source/_chunks/` 等）相对于**用户翻译项目的根目录**（如 `project/example/`）。管线所有命令在项目目录下执行。项目目录结构见仓库根目录 `project/example/`。
+
+### 命令中的混合路径
+下文各步骤的命令同时引用两类路径：`scripts/` 和 `resources/` 指向 skill 目录，`source/` 指向项目目录。AI 执行时需将前缀不同的参数分别解析到正确的绝对路径。即：`scripts/xxx.py` → skill 目录下的脚本，`source/xxx.md` → 项目目录下的文件。
 
 ## 管线
 
@@ -50,7 +56,7 @@ description: End-to-end pipeline: English PDF → Chinese MD → structured JSON
 
 ## 第 1 步：源文档 → Markdown
 
-调用 `daggerheart-md-converter` 技能。将 PDF/DOCX 转为 `source/_original.md`。详见该技能文档。
+调用 `daggerheart-md-converter` 技能。将 PDF/DOCX 转为项目 `source/_original.md`。详见该技能文档。
 
 该技能支持两种方案：marker（本地自动化，需 Gemini API key）和 PaddleOCR-VL（网页手动上传，免费）。
 
@@ -58,7 +64,7 @@ description: End-to-end pipeline: English PDF → Chinese MD → structured JSON
 
 ## 第 2 步：提取文档术语表
 
-调用 `daggerheart-glossary-extractor` 技能，扫描 `_original.md` 提取本文档特有专有名词，输出 `_glossary.json`。
+调用 `daggerheart-glossary-extractor` 技能，扫描项目 `source/_original.md` 提取本文档特有专有名词，输出 `source/_glossary.json`。
 
 详见 [daggerheart-glossary-extractor](../daggerheart-glossary-extractor/SKILL.md)
 
@@ -88,7 +94,7 @@ python scripts/replace_terms.py "source/_original.md" "source/_merged_terms.json
 
 
 
-`_tagged.md` 中术语已被标记为 `【中文 (English) - 注释】`。
+`source/_tagged.md` 中术语已被标记为 `【中文 (English) - 注释】`。
 
 ### 术语表 JSON 格式
 
@@ -143,7 +149,7 @@ python scripts/translation_prompt.py "<chunk_file>"
 启动翻译 subagent：
 - 系统提示词：上述命令生成的完整提示词
 - 模型：快速便宜模型（Haiku 级），关掉 extended thinking
-- subagent 将根据提示词自行 Read 当前 chunk 文件和 REFERENCE.md，翻译后写入 `_translated_chunks/`
+- subagent 将根据提示词自行 Read 当前 chunk 文件和 REFERENCE.md，翻译后写入 `source/_translated_chunks/`
 
 chunk 文件内部已经包含前后文包装段。翻译时允许把这三段正文都译成中文，但**所有 `[[[KILO_...]]]` 标记行必须原样保留**，以便后续自动合并。
 
@@ -194,7 +200,7 @@ python scripts/validate_translation.py "source/_translated.md"
 - 图片链接/表格结构/标题数量等对照检查，**先不预加**；遇到真实问题再补规则
 
 如果检查不通过：
-1. 将脚本输出给 AI，AI 直接修改 `_translated.md` 修正
+1. 将脚本输出给 AI，AI 直接修改 `source/_translated.md` 修正
 2. 重新运行检查脚本
 3. 重复直到检查通过
 

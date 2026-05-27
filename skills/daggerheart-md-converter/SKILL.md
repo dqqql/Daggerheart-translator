@@ -7,6 +7,10 @@ description: Convert Daggerheart PDF/DOCX sources to Markdown. Supports marker (
 
 PDF/DOCX → `source/_original.md`。第一步，格式最易出错，注意检查输出质量。
 
+## 路径约定
+
+`source/` 均相对于用户翻译项目的根目录（如 `project/example/`）。`scripts/` 相对于本 skill 根目录。下文命令中两者混用时，AI 需分别解析到对应绝对路径。
+
 ## 方案对比
 
 | | 方案 A：marker | 方案 B：PaddleOCR-VL |
@@ -57,12 +61,12 @@ python scripts/paddle_postprocess.py "source/_raw.md"
 
 转换后的 MD 总会有格式错误——转义字符残留、表格断行、标题层级混乱、附录噪声混入正文、OCR 错误等。这些错误零散、语义性强，正则脚本难以穷举，用 AI 处理。
 
-启动 subagent，读 `_raw.md`，按以下三部分指引逐项修复，直接写入。**只改格式/修饰符号/位置，不改动具体文本内容。** 
+启动 subagent，读 `source/_raw.md`，按以下三部分指引逐项修复，直接写入。**只改格式/修饰符号/位置，不改动具体文本内容。** 
 
 ### 总体原则
 - 同一文档内，同类型内容的格式应该一致。AI 应主动在文中寻找已正确格式化的同类内容作为参照. 保证格式"统一"比"正确"重要.
 - 下面的例子无法涵盖所有格式错误, AI需要自己判断内容是否有错误, 故AI必须真正读取文章内容, 而不是用grep之类的匹配.
-- 不要原地修改, 复制一份`_raw.md`为`_original.md`, 在上面修改. 修改后diff一下. 如果在非自动模式, 则告知用户进行diff审阅
+- 不要原地修改, 复制一份`source/_raw.md`为`source/_original.md`, 在上面修改. 修改后diff一下. 如果在非自动模式, 则告知用户进行diff审阅
 
 ### 具体例子
 

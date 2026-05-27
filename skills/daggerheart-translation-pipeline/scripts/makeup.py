@@ -1,4 +1,4 @@
-# .claude/skills/daggerheart-translation-pipeline/scripts/makeup.py - Markdown 后处理
+# makeup.py — Markdown 后处理（资源短语格式化、图片清理、排版修正）
 import re
 import os
 

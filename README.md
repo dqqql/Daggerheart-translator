@@ -1,49 +1,46 @@
-# Daggerheart Translation Pipeline
+# Daggerheart 翻译工具集
 
-TTRPG 翻译流水线：PDF → 中文 Markdown → 结构化 JSON。默认搭载 Daggerheart 术语表和模板。
+Daggerheart TTRPG 内容的翻译技能合集。英文 PDF/DOCX 输入，中文 Markdown + 结构化 JSON 输出。
+
+## 目录
+
+```
+skills/                           # 技能源码
+  daggerheart-translation-pipeline/  # 9 步翻译管线（主入口）
+  daggerheart-chinese-writing/      # 中文行文规范
+  daggerheart-glossary-extractor/   # 文档术语提取
+  daggerheart-json-formatter/      # 译文 → 结构化 JSON
+  daggerheart-md-converter/        # PDF/DOCX → Markdown
+project/
+  example/                        # 翻译项目模板（复制以新建项目）
+```
 
 ## 安装
+
+直接 clone，让你的 AI 助手完成安装（详见 `AGENTS.md`）：
 
 ```bash
 git clone https://github.com/ZZZZzzzzac/Daggerheart-translator.git
 ```
 
-作为 DaggerHeart_CN 项目的 skill 子模块：
+然后告诉 AI："安装 Daggerheart-translator skills"。
 
-```bash
-git submodule add https://github.com/ZZZZzzzzac/Daggerheart-translator.git .claude/skills/
-```
+## 使用
 
-## 依赖
-
-- Python 3.x
-- Gemini API key（方案A marker OCR）或 PaddleOCR（方案B，免费）
-- 详见各 skill 文档
-
-## 包含的 Skills
-
-| Skill | 说明 |
-|-------|------|
-| `daggerheart-translation-pipeline` | 9 步翻译流水线（PDF→MD→翻译→JSON） |
-| `daggerheart-chinese-writing` | 中文行文规范与术语统一 |
-| `daggerheart-md-converter` | PDF/DOCX → Markdown |
-| `daggerheart-glossary-extractor` | 从原文提取文档术语表 |
-| `daggerheart-json-formatter` | 译文 → 结构化 JSON |
+1. 复制 `project/example/` 为 `project/<你的项目名>/`
+2. 将待翻译的 PDF/MD 文件放入项目的 `source/` 子目录
+3. 在项目目录下告诉 AI："加载 daggerheart-translation-pipeline skill，翻译这个文件"
 
 ## 适配其他 TTRPG
 
-替换以下 4 个文件即可适配其他规则书：
+替换以下文件即可适配其他规则书：
 
-- `daggerheart-translation-pipeline/resources/terms-*.json` — 术语表
-- `daggerheart-chinese-writing/REFERENCE.md` — 术语规范
-- `daggerheart-chinese-writing/匕语/` — 行文规范
-- `daggerheart-json-formatter/examples/template.md` — 输出模板
+- `skills/daggerheart-translation-pipeline/resources/terms-*.json` — 术语表
+- `skills/daggerheart-chinese-writing/REFERENCE.md` — 术语规范
+- `skills/daggerheart-chinese-writing/匕语/` — 行文规范
+- `skills/daggerheart-json-formatter/examples/template.md` — 输出模板
 
 其余脚本通用，无需修改。
-
-## 使用方式
-
-加载 `daggerheart-translation-pipeline` skill，按 9 步流水线执行（详见该 skill 文档）。
 
 ## License
 

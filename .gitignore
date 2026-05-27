@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .env
 .venv/
+
+# 只追踪 project/example/ 模板，排除其他翻译项目
+project/*
+!project/example/
