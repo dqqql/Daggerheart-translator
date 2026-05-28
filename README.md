@@ -36,7 +36,7 @@ git clone https://github.com/ZZZZzzzzac/Daggerheart-translator.git
 
 1. 尽可能使用claude code或cli工具，codex会导致管线约束失效。
 2. 运行前可以自行检查需要的Python库是否安装，运行过程中安装可能会导致下载慢或者额外的token消耗
-
+3. 安装第一步所需的marker-pdf等ocr库时, 如果下载太慢或者总是出错. 建议换用线上的许多pdf转md工具, 比如paddle-ocr
 
 ## 适配其他 TTRPG
 
